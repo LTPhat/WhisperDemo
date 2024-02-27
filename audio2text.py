@@ -29,7 +29,7 @@ def main ():
 
     #--- settings
     spk_dia_dict = {}   
-
+    embedding_dims = {"tiny": 384, 'small': 768, 'base': 512, 'medium':1024}
     #---- get results form whisper model
     whisper_model = whisper.load_model(model_type, run_device)    
     wp_results = whisper_model.transcribe(audio_file_path)
@@ -46,7 +46,7 @@ def main ():
 
     # >= 2 sentences
     if len(segments) > 1:
-        embeddings = np.zeros(shape=(len(segments), 384))# 384 concaternate from two embeddings from two pre-trained NEMO models (192)
+        embeddings = np.zeros(shape=(len(segments), embedding_dims[model_type]))# 384 concaternate from two embeddings from two pre-trained NEMO models (192)
 
         for i, segment in enumerate(segments):
             start = segment["start"]
